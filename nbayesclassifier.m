@@ -30,5 +30,3 @@ function [ypred,accuracy] = nbayesclassifier(traindata,trainlabel, testdata, tes
     %disp(cat(2,prior_d3,prior_d8,logical_label_test));
     %disp(sum((prior_d3*threshold>prior_d8)==logical_label_test));
     accuracy=(sum((prior_d3*threshold>prior_d8)==logical_label_test))/dim;
-    
-    
