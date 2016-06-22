@@ -12,3 +12,11 @@ under the above independence assumptions, the conditional distribution over the 
 ![](https://wikimedia.org/api/rest_v1/media/math/render/svg/9dd841d7c36e6d7449bea439ef99e8138810870d)
 
 I use the simplist `Parameter estimation` to calculate the probility P(Xi | Ck)
+
+### Linear Classifiers with L2 Regularization parameter
+
+using the matlab function `quadprog`
+
+Optimize: min( (Xw-y)^2 + lambda*w'*w )= (Xw-y)'*(Xw-y) + lambda*w'*w = w'*(X'X+lambda)*w -2y'Xw +y'y
+
+solution: `(X'*X + lambda)\X'*y
