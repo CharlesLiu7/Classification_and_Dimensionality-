@@ -9,12 +9,12 @@ function [ypred,accuracy] = lsclassifier(traindata, trainlabel,testdata, testlab
 %{
     min( Xw-y)^2 + lambda*w'*w
     = (Xw-y)'*(Xw-y) + lambda*w'*w
-    = w'*(X'X+lambda)*w -2y'Xw +y'y
+    = w'*(X'X+lambda*I)*w -2y'Xw +y'y
 %}
     [dim,~]=size(traindata);
     X=[ones(dim,1),traindata];
     % optimize the function
-    w=quadprog(2*(X'*X+lambda),-2*trainlabel'*X);
+    w=quadprog(2*(X'*X+lambda*eye(257)),-2*trainlabel'*X);
     % directly calculate the soluation of the function
     w_l=(X'*X+lambda)\(X'*trainlabel);
     %w_l=pinv(X)*trainlabel;
@@ -27,3 +27,9 @@ function [ypred,accuracy] = lsclassifier(traindata, trainlabel,testdata, testlab
     test_label=testlabel(:,1)==0;
     accuracy=(sum(ypred==test_label)/n);
     disp(accuracy);
+    
+    train_out=[ones(dim,1),traindata]*w;
+    train_classifily=train_out(:,1)<0.5;
+    train_label=trainlabel(:,1)==0;
+    train_accuracy=(sum(train_label==train_classifily)/dim);
+    disp(train_accuracy);
