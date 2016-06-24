@@ -23,7 +23,7 @@ function [ypred,accuracy] = softsvm(traindata, trainlabel,testdata, testlabel, s
     b=y_train(index,1)-sum(alpha.*y_train.*exp(-pdist2(traindata,traindata(index,:),'euclidean').*pdist2(traindata,traindata(index,:),'euclidean')/(sigma^2)));
     
     [m_test,~]=size(testdata);
-    y_test=sum(repmat(alpha.*y_train,1,n).*exp(-pdist2(traindata,testdata,'euclidean').*pdist2(traindata,testdata,'euclidean')/(sigma^2)))+b;
+    y_test=sum(repmat(alpha.*y_train,1,m_test).*exp(-pdist2(traindata,testdata,'euclidean').*pdist2(traindata,testdata,'euclidean')/(sigma^2)))+b;
     ypred=(y_test>0)';
     y_testlabel=~(testlabel==0);
     accuracy=sum(ypred==y_testlabel)/m_test;
