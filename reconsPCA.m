@@ -23,11 +23,8 @@ function [proj_matrix,recons_data,recons_error]=reconsPCA(train_data,test_data, 
     
     proj_matrix=(P')*(test_data');
     recons_data=(P*proj_matrix)';
-    [s,~]=size(test_data);
-    recons_error=zeros(s,1);
-    for i=1:s
-        temp=pdist2(ground_truth(i,:)',recons_data(i,:)', 'euclidean').*pdist2(ground_truth(i,:)',recons_data(i,:)', 'euclidean');
-        recons_error(i)=sum(temp(:))/2500;
-    end
+    error_diff=recons_data-ground_truth;
+    recons_error=sum(error_diff.^2,2)/2500;
+    save('recons_error.mat','recons_error');
     
     
