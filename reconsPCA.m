@@ -7,9 +7,7 @@ function [proj_matrix,recons_data,recons_error]=reconsPCA(train_data,test_data, 
 % ret recons_data : PCA the test_data result
 % recons_error : test_data error
 
-    %S=cov(train_data);
-    [n,~]=size(train_data);
-    S=train_data'*train_data/n;
+    S=cov(train_data);
     [eigenvectors,eigenvalues]=eig(S);
     m_sum=0;
     eigen_sum=trace(eigenvalues);
